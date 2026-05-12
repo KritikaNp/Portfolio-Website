@@ -21,12 +21,12 @@ app.post("/contact",(req,res) => {
     const email = req.body.email
     const message = req.body.message
 
-    const mailOptions={
-        from: email,
-        to: "kritikaneupane58@gmail.com",
-        subject: `New message from ${name}`,
-        text: message
-    }
+    const mailOptions = {
+    from: '"Portfolio Website" <kritikaneupane58@gmail.com>',  
+    to: "kritikaneupane58@gmail.com",  
+    subject: `New message from ${name}`,
+    text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}` 
+}
 
 
     transporter.sendMail(mailOptions, (error, info) => {
