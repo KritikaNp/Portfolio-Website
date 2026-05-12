@@ -615,6 +615,7 @@
           <div class="skill-cat-title">Frameworks</div>
           <div class="skill-pills">
             <span class="pill">Flask</span>
+            <span class="pill">Node.js</span>
           </div>
         </div>
         <div class="skill-category">
@@ -702,7 +703,14 @@
       <div class="section-label" style="text-align:center;">05 — Contact</div>
       <h2 class="section-title">Let's work together</h2>
       <p>Whether it's a project, an opportunity, or just a conversation about code — my inbox is open.</p>
-      <div class="contact-links">
+  <!-- Contact Form -->
+   <div style="margin-top: 2rem;">
+    <input type="text" id="name" placeholder="Your Name" style="display: block; width: 100%; padding: 0.75rem; margin-bottom: 1rem; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--mono);">
+    <input type="email" id="email" placeholder="Your Email" style="display: block; width: 100%; padding: 0.75rem; margin-bottom: 1rem; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--mono);">
+    <textarea id="message" placeholder="Your Message" style="display: block; width: 100%; padding: 0.75rem; margin-bottom: 1rem; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--mono);"></textarea>
+    <button onclick="sendMessage()" class="btn-primary">Send Message</button>
+   </div>
+      <div class="contact-links" style="margin-top: 2rem;">
         <a href="mailto:kritikaneupane58@gmail.com" class="btn-primary">Send an Email</a>
         <a href="https://github.com/KritikaNp" target="_blank" class="btn-outline">GitHub</a>
         <a href="https://www.linkedin.com/in/kritika-neupane-03a76137a/" target="_blank" class="btn-outline">LinkedIn</a>
@@ -715,6 +723,26 @@
     <div>© 2026 <span>Kritika Neupane</span></div>
     <div>Designed & built with care</div>
   </footer>
+<script>
+  async function sendMessage(){
+    const name=document.getElementById("name").value
+    const email=document.getElementById("email").value
+    const message=document.getElementById("message").value
 
+    const response = await fetch("http://localhost:3000/contact", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({name,email,message})
+    })
+
+    const result = await response.text()
+    alert(result)
+
+    //clear form after sending
+    document.getElementById("name").value = ""
+    document.getElementById("email").value = ""
+    document.getElementById("message").value = ""
+  }
+</script>
 </body>
 </html>
