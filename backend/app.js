@@ -1,6 +1,7 @@
 const express = require("express") //import express
 const cors= require("cors")
 const nodemailer= require("nodemailer")
+require("dotenv").config()
 
 const app = express() // create our server
 
@@ -11,8 +12,8 @@ app.use(cors()) //allow frontend to talk to backend
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "kritikaneupane58@gmail.com",
-        pass: "egin svfc blxj nxep"
+        user: process.env.EMAIL,
+        pass: process.env.APP_PASSWORD
     }
 })
 
@@ -23,7 +24,7 @@ app.post("/contact",(req,res) => {
 
     const mailOptions = {
     from: '"Portfolio Website" <kritikaneupane58@gmail.com>',  
-    to: "kritikaneupane58@gmail.com",  
+    to: process.env.EMAIL,  
     subject: `New message from ${name}`,
     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}` 
 }
