@@ -1,13 +1,20 @@
+require("dotenv").config()
 const express = require("express") //import express
 const cors= require("cors")
 const nodemailer= require("nodemailer")
-require("dotenv").config()
+const rateLimit = require("express-rate-limit")
 
 const app = express() // create our server
 
 // lets server understand json data sent from forms
 app.use(express.json())
 app.use(cors()) //allow frontend to talk to backend
+
+const contactLimiter = rateLimit({
+    windowMs: 15*60*100,
+    max: 5,
+    message: "Too many messages sent. Please try again after 15 minutes."
+})
 
 const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -17,7 +24,7 @@ const transporter = nodemailer.createTransport({
     }
 })
 
-app.post("/contact",(req,res) => {
+app.post("/contact",contactLimiter, (req,res) => {
     const name = req.body.name // get name from forms
     const email = req.body.email
     const message = req.body.message
