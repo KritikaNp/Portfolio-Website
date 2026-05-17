@@ -17,7 +17,9 @@ const contactLimiter = rateLimit({
 })
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",      // gmail smtp server
+    port: 587,                   // port 587 is allowed on Render
+    secure: false,               // false for port 587
     auth: {
         user: process.env.EMAIL,
         pass: process.env.APP_PASSWORD
