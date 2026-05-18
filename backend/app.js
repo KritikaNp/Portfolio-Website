@@ -1,10 +1,13 @@
-require("dotenv").config()
 const express = require("express") //import express
 const cors= require("cors")
 const nodemailer= require("nodemailer")
 const rateLimit = require("express-rate-limit")
 
+require("dotenv").config()
+
 const app = express() // create our server
+
+app.set('trust proxy', 1) 
 
 // lets server understand json data sent from forms
 app.use(express.json())
