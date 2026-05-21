@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kritika Neupane — Backend Developer</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -704,25 +705,31 @@
     <div>Designed & built with care</div>
   </footer>
 <script>
-  async function sendMessage(){
-    const name=document.getElementById("name").value
-    const email=document.getElementById("email").value
-    const message=document.getElementById("message").value
+    emailjs.init("ecR4cMevfoRae2zVb")
 
-    const response = await fetch("https://portfolio-backend-um8j.onrender.com/contact", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({name,email,message})
-    })
+    async function sendMessage() {
+        const name = document.getElementById("name").value
+        const email = document.getElementById("email").value
+        const message = document.getElementById("message").value
 
-    const result = await response.text()
-    alert(result)
-
-    //clear form after sending
-    document.getElementById("name").value = ""
-    document.getElementById("email").value = ""
-    document.getElementById("message").value = ""
-  }
+        // send email using emailjs
+        emailjs.send("service_pw3tlgr", "template_afmqnnr", {
+            name: name,
+            email: email,
+            message: message
+        })
+        .then(() => {
+            alert("Message received!")
+            // clear form
+            document.getElementById("name").value = ""
+            document.getElementById("email").value = ""
+            document.getElementById("message").value = ""
+        })
+        .catch((error) => {
+            alert("Something went wrong!")
+            console.log(error)
+        })
+    }
 </script>
 </body>
 </html>
